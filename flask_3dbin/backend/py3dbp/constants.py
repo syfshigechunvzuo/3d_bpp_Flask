@@ -22,4 +22,9 @@ class Task:
     Packers = []
     Bins_for_reward = []
     Used_bins_for_reward = []
+    TradeId = ''
+    Not_fit_num = 0
+    msg = ''
+
+    #tradeId str
 

@@ -30,7 +30,7 @@ def post_json():
         # 解析json前进行编码.不然出来的结果并不是中文的
         all_run(json.loads(request_data))
 
-        return 'post_json'
+        # return 'post_json'
     return 'post_json'
 
 @account.route('/return_json')

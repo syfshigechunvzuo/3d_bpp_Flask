@@ -1,7 +1,7 @@
 from .py3dbp.constants import Task
 from .py3dbp import Bin, Item, Packer
-from .py3dbp import bin_items_show
 from .datainit import*
+from .py3dbp.auxiliary_methods import intersect, set_to_decimal
 import numpy as np
 import time
 import torch
@@ -22,8 +22,6 @@ from torch.utils.data import TensorDataset, DataLoader
 from tqdm import tqdm
 
 from decimal import Decimal
-import decimal
-import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection, Line3DCollection
 import seaborn as sns
 import random
@@ -282,6 +280,7 @@ def all_run(json_data):
         for item in packer.items:
 
             strsuit = item.suite_id
+            print(strsuit)
             if not strsuit:
                 # print('here')
                 strsuit = '0'
@@ -299,11 +298,11 @@ def all_run(json_data):
                         break
             item.suite_id = strsuit
             ptr_input[0][i] = float(item.suite_id)
-            ptr_input[1][i] = float(item.width)/10
-            ptr_input[2][i] = float(item.height)/10
+            ptr_input[1][i] = float(item.width)
+            ptr_input[2][i] = float(item.height)
             # print(item.width)
             # print(ptr_input[1][i])
-            ptr_input[3][i] = float(item.depth)/10
+            ptr_input[3][i] = float(item.depth)
             ptr_input[4][i] = float(item.weight)/10
             for m in range(6):
                 if m in item.limit_dirct:
@@ -317,8 +316,9 @@ def all_run(json_data):
             # print('ptr-inout', ptr_input)
             i = i + 1
         y = np.expand_dims(np.array(ptr_input), axis=0)
+        print('here', y)
         y = torch.FloatTensor(y)
-        print('here',y)
+
         # device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         input_size_item = 29
         embedding_size = 128
@@ -348,39 +348,62 @@ def all_run(json_data):
 
         for i in range(num_bin):
             #如果这个箱子装满了这些订单 break运行下一个订单，否则就上下一个箱子
-            if packer.pack(i+1, False, i == num_bin-1) == 0:
+            Not_fit_num = packer.pack(i+1, False, i == num_bin-1)
+            if Not_fit_num == 0:
                 break
+            elif i == (num_bin-1):
+                Task.Not_fit_num = Not_fit_num
+
 
 
 
 
 
     i = 1   # 装箱步骤计数
-    output = {
-                '装箱步骤': []
-            }
+    # output = {
+    #             '装箱步骤': []
+    #         }
     output_3d = {
         '箱子': []
     }
     print(len(Task.Used_bins))
+    goodNum = 0
+    totalCapacity = 0
+    totalWeight = 0
+    trainList = []
     for bin in Task.Used_bins:
         totalvol = bin.get_total_vol()
+        totalCapacity = totalCapacity + totalvol
+        totalWeight = totalWeight + bin.get_total_weight()
         print('货箱利用率')
         print(totalvol / bin.get_volume())
         bin.items.sort(key=lambda x: (x.position[0], x.position[1], x.position[2]))
         itemsinfo = []
+        goodNum_bin = len(bin.items)
+        goodNum = goodNum + goodNum_bin
+        m = 1
+        stepList = []
         for item in bin.items:
             item_info = []
-            info = {
-                '装箱步骤': '步骤'+str(i),
-                '订单序号': item.packer_name,
-                '货箱序号': bin.name,
-                '货物坐标': item.position,
-                '货物序号': item.id
+            BinPickingResultGood = {
+                'materialCode': item.id,
+                'restrictionFlag': str(item.rotation_type),
+                'x': float(item.position[0]),
+                'y': float(item.position[1]),
+                'z': float(item.position[2]),
+                'trainIndex': int(m)
             }
-            output['装箱步骤'].append(info)
-            i += 1
-
+            goodList_step = []
+            goodList_step.append(BinPickingResultGood)
+            BinPickingResultStep = {
+                'step': int(m),
+                'qty': 1,
+                'directionNum':'2*2*1',
+                'orderCode': item.packer_name,
+                'goodList': goodList_step
+            }
+            m += 1
+            stepList.append(BinPickingResultStep)
             pos = (float(item.position[0]), float(item.position[1]), float(item.position[2]))
             item_info.append(pos)
             dimension = item.get_dimension()
@@ -396,10 +419,40 @@ def all_run(json_data):
             '货箱高': bin.height,
             '货箱货物': itemsinfo
         }
+        BinPickingResultTrain = {
+            'train': int(i),
+            'modelCode': bin.type,
+            'good_Num': goodNum_bin,
+            'totalCapacity': totalvol,
+            'totalWeight': bin.get_total_weight() * (set_to_decimal(0.001, 3)),
+            'packingRate': totalvol / bin.get_volume(),
+            'stepList': stepList
+        }
+        i = i + 1
+        trainList.append(BinPickingResultTrain)
         output_3d['箱子'].append(info_3d)
 
-        # bin_items_show.item_show(bin.width, bin.depth, bin.height, itemsinfo)
 
+
+    # tradeId = str(Task.TradeId),
+    print(Task.TradeId)
+    print(Task.Not_fit_num)
+    if(Task.Not_fit_num == 0):
+        status = 0
+    else:
+        status = 1
+    msg = Task.msg
+    carNum = len(Task.Used_bins)
+    BinPickingResult = {
+        'tradeId': Task.TradeId,
+        'status' : status,
+        'msg' : msg,
+        'carNum' : carNum,
+        'goodNum' : goodNum,
+        'totalCapacity' : totalCapacity,
+        'totalWeight' : totalWeight * (set_to_decimal(0.001, 3)),
+        'trainList' : trainList
+    }
     Pathout = os.path.join(app_path(), 'output.json')
     Pathout3d = os.path.join(app_path(), 'output_3d.json')
     if not os.path.exists(Pathout):
@@ -413,7 +466,7 @@ def all_run(json_data):
 
     print(Pathout)
     print(Pathout3d)
-    jsondata = json.dumps(output, cls=DecimalEncoder, ensure_ascii=False)
+    jsondata = json.dumps(BinPickingResult, cls=DecimalEncoder, ensure_ascii=False)
     with open(Pathout, 'w', encoding='utf-8') as fp:
         fp.write(jsondata)
         fp.close()
@@ -424,7 +477,9 @@ def all_run(json_data):
         fp.close()
 
     end = time.perf_counter()
-    print('程序运行时间：%s' % (end-start))
+    print('程序运行时间：%s' % (end - start))
+
+
 
 
 
