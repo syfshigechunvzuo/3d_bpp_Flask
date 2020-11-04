@@ -3,12 +3,13 @@ from .auxiliary_methods import intersect, set_to_decimal
 DEFAULT_NUMBER_OF_DECIMALS = 3
 START_POSITION = [0, 0, 0]
 
+
 class Item:
-    def __init__(self, packer_name, name, suite_id, id, type, weight, vol, width, height, depth, limit_dirct=[], limit_load=[], limit_stack=[],load_or_not=[]):
-        self.name = name
+    def __init__(self, packer_name, suite_id, id, weight, vol, width, height, depth, limit_dirct=[], limit_load=[], limit_stack=[],load_or_not=[]):
+        # self.name = name
         self.suite_id = suite_id
         self.id = id
-        self.type = type
+        # self.type = type
         self.vol = vol
         self.width = width
         self.height = height
@@ -62,8 +63,8 @@ class Item:
 
 
 class Bin:
-    def __init__(self, name, type, weight, width, height, depth):
-        self.name = name
+    def __init__(self, type, weight, width, height, depth):
+        # self.name = name
         self.type = type
         self.width = width
         self.height = height
@@ -349,7 +350,7 @@ class Packer:
                     #     print("货物结束")
                     # print("一个新的套机装进去了")
                     # print("====>装入物品的位置是 ", item.string())
-                    if (item.suite_id != ''and is_reward == False) or (item.suite_id != 0 and is_reward == True):
+                    if (item.suite_id != '0'):
                         # print('套机编码：%s #' %item.suite_id)
                         j = i
                         i += 1
@@ -395,7 +396,7 @@ class Packer:
                     else:
                         i += 1
                 else:
-                    if (item.suite_id != '' and is_reward == False) or (item.suite_id != 0 and is_reward == True):
+                    if (item.suite_id != '0'):
                         i = i + 1
                         if i < len(self.items):
                             while self.items[i].suite_id == item.suite_id:
@@ -427,7 +428,10 @@ class Packer:
             else:
                 for bin in Bins:
                     if bin.items:
-                        Task.Used_bins_for_reward.append(bin)
+                        if is_reward:
+                            Task.Used_bins_for_reward.append(bin)
+                        else:
+                            Task.Used_bins.append(bin)
             return notfit_number
         else:
             for bin in Bins:
