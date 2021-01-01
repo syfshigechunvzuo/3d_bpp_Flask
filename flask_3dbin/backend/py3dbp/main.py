@@ -342,14 +342,7 @@ class Packer:
                 item = self.items[i]
                 # print("====> ", item.string())
                 if self.pack_to_bin(bin, item):
-                    # for binn in Bins:
-                    #     print("====> 这是一个新箱子之放入一个货物之后", binn.string())
-                    #     print("属于一个套机这个箱子里目前含有的货物")
-                    #     for item in binn.items:
-                    #         print("====> ", item.string())
-                    #     print("货物结束")
-                    # print("一个新的套机装进去了")
-                    # print("====>装入物品的位置是 ", item.string())
+
                     if (item.suite_id != '0'):
                         # print('套机编码：%s #' %item.suite_id)
                         j = i
