@@ -1,0 +1,251 @@
+{
+  "tradeId": "312941678",
+  "orderList": [
+    {
+      "orderCode": "0",
+      "unloadingSequence": 0,
+      "goodList": [
+        {
+          "materialCode": "CG0LLR009",
+          "setCode": "",
+          "qty": 50,
+          "length": 660.0,
+          "width": 590.0,
+          "height": 950.0,
+          "weight": 0.45,
+          "restrictionList": [
+            {
+              "flag": "1",
+              "isBear": true,
+              "bearLevel": 9,
+              "isStack": true,
+              "stackLevel": 3
+            },
+            {
+              "flag": "2",
+              "isBear": true,
+              "bearLevel": 9,
+              "isStack": true,
+              "stackLevel": 3
+            }
+          ]
+        },
+        {
+          "materialCode": "TD0028186",
+          "setCode": "",
+          "qty": 5,
+          "length": 330.0,
+          "width": 420.0,
+          "height": 395.0,
+          "weight": 0.054747,
+          "restrictionList": [
+            {
+              "flag": "1",
+              "isBear": true,
+              "bearLevel": 2,
+              "isStack": true,
+              "stackLevel": 10
+            },
+            {
+              "flag": "2",
+              "isBear": true,
+              "bearLevel": 2,
+              "isStack": true,
+              "stackLevel": 10
+            }
+          ]
+        },
+        {
+          "materialCode": "TD0028179",
+          "setCode": "",
+          "qty": 18,
+          "length": 440.0,
+          "width": 600.0,
+          "height": 400.0,
+          "weight": 0.1056,
+          "restrictionList": [
+            {
+              "flag": "1",
+              "isBear": true,
+              "bearLevel": 2,
+              "isStack": true,
+              "stackLevel": 10
+            },
+            {
+              "flag": "2",
+              "isBear": true,
+              "bearLevel": 2,
+              "isStack": true,
+              "stackLevel": 10
+            }
+          ]
+        },
+        {
+          "materialCode": "AL00MF008",
+          "setCode": "",
+          "qty": 16,
+          "length": 280.0,
+          "width": 950.0,
+          "height": 350.0,
+          "weight": 0.0931,
+          "restrictionList": [
+            {
+              "flag": "1",
+              "isBear": true,
+              "bearLevel": 7,
+              "isStack": true,
+              "stackLevel": 2
+            },
+            {
+              "flag": "2",
+              "isBear": true,
+              "bearLevel": 7,
+              "isStack": true,
+              "stackLevel": 2
+            }
+          ]
+        },
+        {
+          "materialCode": "CG0LLA009",
+          "setCode": "",
+          "qty": 15,
+          "length": 675.0,
+          "width": 675.0,
+          "height": 920.0,
+          "weight": 0.419175,
+          "restrictionList": [
+            {
+              "flag": "1",
+              "isBear": true,
+              "bearLevel": 9,
+              "isStack": true,
+              "stackLevel": 3
+            },
+            {
+              "flag": "2",
+              "isBear": true,
+              "bearLevel": 9,
+              "isStack": true,
+              "stackLevel": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "orderCode": "1",
+      "unloadingSequence": 1,
+      "goodList": [
+        {
+          "materialCode": "BL06W1E8Z",
+          "setCode": "",
+          "qty": 12,
+          "length": 683.0,
+          "width": 802.0,
+          "height": 1825.0,
+          "weight": 0.99967295,
+          "restrictionList": [
+            {
+              "flag": "1",
+              "isBear": true,
+              "bearLevel": 7,
+              "isStack": true,
+              "stackLevel": 2
+            },
+            {
+              "flag": "2",
+              "isBear": true,
+              "bearLevel": 7,
+              "isStack": true,
+              "stackLevel": 2
+            }
+          ]
+        }
+      ]
+    }
+
+  ],
+  "vehicleModelList": [
+    {
+      "modelCode": "B0002",
+      "qty": 4,
+      "cubic": 14.197008,
+      "weight": 2500.0,
+      "length": 4340.0,
+      "width": 1740.0,
+      "height": 1880.0
+    },
+    {
+      "modelCode": "B0006",
+      "qty": 4,
+      "cubic": 45.494,
+      "weight": 10000.0,
+      "length": 8600.0,
+      "width": 2300.0,
+      "height": 2300.0
+    },
+    {
+      "modelCode": "B0005",
+      "qty": 5,
+      "cubic": 35.604,
+      "weight": 8000.0,
+      "length": 7200.0,
+      "width": 2300.0,
+      "height": 2150.0
+    },
+    {
+      "modelCode": "B0001",
+      "qty": 3,
+      "cubic": 9.0848,
+      "weight": 1250.0,
+      "length": 3200.0,
+      "width": 1700.0,
+      "height": 1670.0
+    },
+    {
+      "modelCode": "B0007",
+      "qty": 1,
+      "cubic": 47.61,
+      "weight": 11000.0,
+      "length": 9000.0,
+      "width": 2300.0,
+      "height": 2300.0
+    },
+    {
+      "modelCode": "B0008",
+      "qty": 4,
+      "cubic": 49.197,
+      "weight": 12000.0,
+      "length": 9300.0,
+      "width": 2300.0,
+      "height": 2300.0
+    },
+    {
+      "modelCode": "B0009",
+      "qty": 4,
+      "cubic": 66.0491,
+      "weight": 20000.0,
+      "length": 11960.0,
+      "width": 2350.0,
+      "height": 2350.0
+    },
+    {
+      "modelCode": "B0004",
+      "qty": 5,
+      "cubic": 35.2408,
+      "weight": 5000.0,
+      "length": 6200.0,
+      "width": 2320.0,
+      "height": 2450.0
+    },
+    {
+      "modelCode": "B0003",
+      "qty": 3,
+      "cubic": 24.816141,
+      "weight": 3500.0,
+      "length": 5780.0,
+      "width": 2115.0,
+      "height": 2030.0
+    }
+  ]
+}

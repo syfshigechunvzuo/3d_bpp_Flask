@@ -392,13 +392,14 @@ def all_run(json_data):
                 'y': float(item.position[1]),
                 'z': float(item.position[2]),
                 'trainIndex': int(m)
+
             }
             goodList_step = []
             goodList_step.append(BinPickingResultGood)
             BinPickingResultStep = {
                 'step': int(m),
                 'qty': 1,
-                'directionNum':'2*2*1',
+                'directionNum':'1*1*1',
                 'orderCode': item.packer_name,
                 'goodList': goodList_step
             }

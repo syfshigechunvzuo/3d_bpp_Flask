@@ -54,48 +54,60 @@ def init_data(json_data):
             stack_limit = [0, 0, 0, 0, 0, 0]
             BinPickingRestriction = jsitem['restrictionList']
             for limit in BinPickingRestriction:
-                if limit['flag'] == 1:
+                if limit['flag'] == '1':
                     dirct_limit.append(0)
                     load_limit[0] = limit['bearLevel']
                     if limit['isBear']:
                         load_or_not[0] = 1
                     if limit['isStack']:
                         stack_limit[0] = limit['stackLevel']
-                elif limit['flag'] == 2:
+                    else:
+                        stack_limit[0] = 100
+                elif limit['flag'] == '2':
                     dirct_limit.append(1)
                     load_limit[1] = limit['bearLevel']
                     if limit['isBear']:
                         load_or_not[1] = 1
                     if limit['isStack']:
                         stack_limit[1] = limit['stackLevel']
-                elif limit['flag'] == 3:
+                    else:
+                        stack_limit[1] = 100
+                elif limit['flag'] == '3':
                     dirct_limit.append(3)
                     load_limit[3] = limit['bearLevel']
                     if limit['isBear']:
                         load_or_not[3] = 1
                     if limit['isStack']:
                         stack_limit[3] = limit['stackLevel']
-                elif limit['flag'] == 4:
+                    else:
+                        stack_limit[3] = 100
+                elif limit['flag'] == '4':
                     dirct_limit.append(2)
                     load_limit[2] = limit['bearLevel']
                     if limit['isBear']:
                         load_or_not[2] = 1
                     if limit['isStack']:
                         stack_limit[2] = limit['stackLevel']
-                elif limit['flag'] == 5:
+                    else:
+                        stack_limit[2] = 100
+                elif limit['flag'] == '5':
                     dirct_limit.append(5)
                     load_limit[5] = limit['bearLevel']
                     if limit['isBear'] :
                         load_or_not[5] = 1
                     if limit['isStack']:
                         stack_limit[5] = limit['stackLevel']
-                elif limit['flag'] == 6:
+                    else:
+                        stack_limit[5] = 100
+                elif limit['flag'] == '6':
                     dirct_limit.append(4)
                     load_limit[4] = limit['bearLevel']
                     if limit['isBear']:
                         load_or_not[4] = 1
                     if limit['isStack']:
                         stack_limit[4] = limit['stackLevel']
+                    else:
+                        stack_limit[4] = 100
                 else:
                     Task.msg = '没有摆放方向，原始数据出错'
                     print(Task.msg)
